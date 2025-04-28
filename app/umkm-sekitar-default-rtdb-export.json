@@ -1,0 +1,279 @@
+{
+  "toko": [
+    {
+      "foto": "",
+      "kategori_toko": [
+        "Sembako",
+        "Warung"
+      ],
+      "list_barang": [
+        {
+          "deskripsi": "Minyak goreng berkualitas tinggi, 1 liter",
+          "foto": "",
+          "harga": "25000",
+          "nama": "Minyak Goreng Bimoli",
+          "stok": "15",
+          "tag": [
+            "Minyak Goreng",
+            "Sembako"
+          ]
+        },
+        {
+          "deskripsi": "Beras premium kualitas terbaik, 5kg",
+          "foto": "",
+          "harga": "65000",
+          "nama": "Beras Pandan Wangi",
+          "stok": "20",
+          "tag": [
+            "Beras",
+            "Sembako"
+          ]
+        }
+      ],
+      "lokasi": "Tebet",
+      "nama_toko": "SRC - Warung Narto Yuwono"
+    },
+    {
+      "foto": "",
+      "kategori_toko": [
+        "Sembako",
+        "Kelontong"
+      ],
+      "list_barang": [
+        {
+          "deskripsi": "Gula pasir putih berkualitas, 1kg",
+          "foto": "",
+          "harga": "15000",
+          "nama": "Gula Pasir",
+          "stok": "30",
+          "tag": [
+            "Gula",
+            "Sembako"
+          ]
+        },
+        {
+          "deskripsi": "Telur ayam segar, per kg",
+          "foto": "",
+          "harga": "28000",
+          "nama": "Telur Ayam",
+          "stok": "50",
+          "tag": [
+            "Telur",
+            "Protein"
+          ]
+        },
+        {
+          "deskripsi": "Mie instan rasa ayam bawang, isi 5 pcs",
+          "foto": "",
+          "harga": "13500",
+          "nama": "Mie Instan Indomie",
+          "stok": "100",
+          "tag": [
+            "Mie Instan",
+            "Makanan"
+          ]
+        }
+      ],
+      "lokasi": "Kemang",
+      "nama_toko": "Toko Sembako Sejahtera"
+    },
+    {
+      "foto": "",
+      "kategori_toko": [
+        "Warung",
+        "Makanan"
+      ],
+      "list_barang": [
+        {
+          "deskripsi": "Kopi hitam kemasan 250gr",
+          "foto": "",
+          "harga": "20000",
+          "nama": "Kopi Hitam",
+          "stok": "25",
+          "tag": [
+            "Kopi",
+            "Minuman"
+          ]
+        },
+        {
+          "deskripsi": "Teh celup isi 25 sachet",
+          "foto": "",
+          "harga": "8000",
+          "nama": "Teh Celup",
+          "stok": "40",
+          "tag": [
+            "Teh",
+            "Minuman"
+          ]
+        }
+      ],
+      "lokasi": "Pancoran",
+      "nama_toko": "Warung Barokah"
+    },
+    {
+      "foto": "",
+      "kategori_toko": [
+        "Elektronik",
+        "Toko"
+      ],
+      "list_barang": [
+        {
+          "deskripsi": "Kabel charger micro USB 1 meter",
+          "foto": "",
+          "harga": "15000",
+          "nama": "Kabel Charger Micro USB",
+          "stok": "35",
+          "tag": [
+            "Elektronik",
+            "Aksesoris"
+          ]
+        },
+        {
+          "deskripsi": "Earphone dengan kualitas suara jernih",
+          "foto": "",
+          "harga": "45000",
+          "nama": "Earphone Universal",
+          "stok": "18",
+          "tag": [
+            "Elektronik",
+            "Audio"
+          ]
+        },
+        {
+          "deskripsi": "Baterai AA isi 4 pcs",
+          "foto": "",
+          "harga": "12000",
+          "nama": "Baterai AA",
+          "stok": "60",
+          "tag": [
+            "Elektronik",
+            "Baterai"
+          ]
+        }
+      ],
+      "lokasi": "Kuningan",
+      "nama_toko": "Toko Elektronik Jaya"
+    },
+    {
+      "foto": "",
+      "kategori_toko": [
+        "Sayuran",
+        "Pasar"
+      ],
+      "list_barang": [
+        {
+          "deskripsi": "Sayur bayam segar per ikat",
+          "foto": "",
+          "harga": "5000",
+          "nama": "Bayam",
+          "stok": "25",
+          "tag": [
+            "Sayuran",
+            "Hijau"
+          ]
+        },
+        {
+          "deskripsi": "Wortel segar per kg",
+          "foto": "",
+          "harga": "12000",
+          "nama": "Wortel",
+          "stok": "30",
+          "tag": [
+            "Sayuran",
+            "Umbi"
+          ]
+        },
+        {
+          "deskripsi": "Tomat merah segar per kg",
+          "foto": "",
+          "harga": "18000",
+          "nama": "Tomat",
+          "stok": "40",
+          "tag": [
+            "Sayuran",
+            "Buah"
+          ]
+        },
+        {
+          "deskripsi": "Kentang per kg",
+          "foto": "",
+          "harga": "15000",
+          "nama": "Kentang",
+          "stok": "35",
+          "tag": [
+            "Sayuran",
+            "Umbi"
+          ]
+        }
+      ],
+      "lokasi": "Pasar Minggu",
+      "nama_toko": "Toko Sayur Segar"
+    },
+    {
+      "foto": "",
+      "kategori_toko": [
+        "Alat Tulis",
+        "Toko"
+      ],
+      "list_barang": [
+        {
+          "deskripsi": "Buku tulis isi 58 lembar",
+          "foto": "",
+          "harga": "5500",
+          "nama": "Buku Tulis",
+          "stok": "100",
+          "tag": [
+            "ATK",
+            "Buku"
+          ]
+        },
+        {
+          "deskripsi": "Pulpen tinta hitam",
+          "foto": "",
+          "harga": "3500",
+          "nama": "Pulpen Hitam",
+          "stok": "150",
+          "tag": [
+            "ATK",
+            "Alat Tulis"
+          ]
+        },
+        {
+          "deskripsi": "Pensil 2B",
+          "foto": "",
+          "harga": "2500",
+          "nama": "Pensil 2B",
+          "stok": "120",
+          "tag": [
+            "ATK",
+            "Alat Tulis"
+          ]
+        },
+        {
+          "deskripsi": "Penghapus putih",
+          "foto": "",
+          "harga": "2000",
+          "nama": "Penghapus",
+          "stok": "80",
+          "tag": [
+            "ATK",
+            "Alat Tulis"
+          ]
+        },
+        {
+          "deskripsi": "Penggaris plastik 30cm",
+          "foto": "",
+          "harga": "4000",
+          "nama": "Penggaris",
+          "stok": "60",
+          "tag": [
+            "ATK",
+            "Alat Ukur"
+          ]
+        }
+      ],
+      "lokasi": "Cawang",
+      "nama_toko": "Toko ATK Cerdas"
+    }
+  ]
+}
