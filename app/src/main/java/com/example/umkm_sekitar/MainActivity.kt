@@ -11,6 +11,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.umkm_sekitar.data.model.Toko
 import com.example.umkm_sekitar.ui.screen.auth.AuthScreen
 import com.example.umkm_sekitar.ui.screen.auth.AuthState
 import com.example.umkm_sekitar.ui.screen.auth.AuthViewModel
@@ -25,7 +26,7 @@ import com.google.firebase.ktx.Firebase
 class MainActivity : ComponentActivity() {
 
     val database = Firebase.database
-    val myRef = database.getReference("toko") // Replace "your_data_node" with where you want to store data
+    val myRef = database.getReference("test")
 
     private val TAG = "FIREBASE"
 
@@ -33,12 +34,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        Toast.makeText(this, "AAAAAAAAAAAa", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Reading Firebase Data", Toast.LENGTH_SHORT).show()
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                val value = dataSnapshot.getValue<String>()
+                val value = dataSnapshot.value
                 Log.d(TAG, "Value is: $value")
             }
 
@@ -47,12 +48,43 @@ class MainActivity : ComponentActivity() {
                 Log.w(TAG, "Failed to read value.", error.toException())
             }
         })
+//        myRef.addValueEventListener(object : ValueEventListener {
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                // This will convert the data to a list of Toko objects
+//                val tokoList = mutableListOf<Toko>()
+//
+//                for (tokoSnapshot in dataSnapshot.children) {
+//                    val toko = tokoSnapshot.getValue(Toko::class.java)
+//                    toko?.let {
+//                        tokoList.add(it)
+//                        // Log each toko
+//                        Log.d(TAG, "Toko: ${it.nama_toko}, Location: ${it.lokasi}")
+//                        Log.d(TAG, "Categories: ${it.kategori_toko.joinToString()}")
+//                        Log.d(TAG, "Number of items: ${it.list_barang.size}")
+//
+//                        // Log some items from each toko
+//                        it.list_barang.take(2).forEach { barang ->
+//                            Log.d(TAG, "  Item: ${barang.nama}, Price: ${barang.harga}, Stock: ${barang.stok}")
+//                        }
+//                        Log.d(TAG, "------------------------")
+//                    }
+//                }
+//
+//                Log.d(TAG, "Total number of toko: ${tokoList.size}")
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                // Failed to read value
+//                Log.w(TAG, "Failed to read value.", error.toException())
+//            }
+//        })
+
         setContent {
             UmkmSekitarTheme {
                 val authViewModel: AuthViewModel = viewModel()
-                val authState by authViewModel.authState.collectAsState()
+                val authState = authViewModel.authState.collectAsState().value
 
-                Scaffold(modifier = Modifier.Companion.fillMaxSize()) { innerPadding ->
+                Scaffold(modifier = Modifier.fillMaxSize()) {
                     when (authState) {
                         is AuthState.SignedIn -> {
                             UserProfileScreen(
@@ -70,5 +102,4 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-}
+    }}
