@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "515609945888",
+    "project_id": "umkm-sekitar",
+    "storage_bucket": "umkm-sekitar.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:515609945888:android:007d6cd2e382ddd2191945",
+        "android_client_info": {
+          "package_name": "com.example.umkm_sekitar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "515609945888-57mrmnqda5lj1i717iq4h1gafm6sefq5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.umkm_sekitar",
+            "certificate_hash": "86c5755459af9501007ed31c54e164bc81414874"
+          }
+        },
+        {
+          "client_id": "515609945888-mbktkebu5q7m4vssol48ujm8bti2pohc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPVbYBK40jOOQ0CjAOFHpqAYmMfP11XvA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "515609945888-mbktkebu5q7m4vssol48ujm8bti2pohc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
