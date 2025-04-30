@@ -87,16 +87,17 @@ fun SignInContent(onSignInClick: () -> Unit) {
 
 @Composable
 fun UserProfileScreen(
+    modifier: Modifier = Modifier,
     viewModel: AuthViewModel = viewModel()
 ) {
     val context = LocalContext.current
     val currentUser by viewModel.currentUser.collectAsState()
 
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = modifier
+            .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         currentUser?.let { user ->
             Text(text = "Welcome, ${user.displayName ?: "User"}")

@@ -1,29 +1,28 @@
 package com.example.umkm_sekitar.data.source
-
-import com.example.umkm_sekitar.data.model.Toko
+//
+import com.example.umkm_sekitar.data.model.Store
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import javax.inject.Inject
 import kotlin.jvm.java
-
-class FirebaseDataSource @Inject constructor() {
-    private val database = FirebaseDatabase.getInstance()
-    private val tokoRef = database.getReference("toko")
-
-    fun getAllToko(): Flow<List<Toko>> = callbackFlow {
+//
+class FirebaseDataSource @Inject constructor(
+    private val storeRef: DatabaseReference
+) {
+    fun getAllStore(): Flow<List<Store>> = callbackFlow {
         val listener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val tokoList = mutableListOf<Toko>()
-                for (tokoSnapshot in snapshot.children) {
-                    val toko = tokoSnapshot.getValue(Toko::class.java)
-                    toko?.let { tokoList.add(it) }
+                val storeList = mutableListOf<Store>()
+                for (storeSnapshot in snapshot.children) {
+                    val store = storeSnapshot.getValue(Store::class.java)
+                    store?.let { storeList.add(it) }
                 }
-                trySend(tokoList)
+                trySend(storeList)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -31,26 +30,26 @@ class FirebaseDataSource @Inject constructor() {
             }
         }
 
-        tokoRef.addValueEventListener(listener)
+        storeRef.addValueEventListener(listener)
 
         awaitClose {
-            tokoRef.removeEventListener(listener)
+            storeRef.removeEventListener(listener)
         }
     }
 
-    fun getTokoByCategory(category: String): Flow<List<Toko>> = callbackFlow {
+    fun getStoreByCategory(category: String): Flow<List<Store>> = callbackFlow {
         val listener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val tokoList = mutableListOf<Toko>()
-                for (tokoSnapshot in snapshot.children) {
-                    val toko = tokoSnapshot.getValue(Toko::class.java)
-                    toko?.let {
-                        if (it.kategori_toko.contains(category)) {
-                            tokoList.add(it)
+                val storeList = mutableListOf<Store>()
+                for (storeSnapshot in snapshot.children) {
+                    val store = storeSnapshot.getValue(Store::class.java)
+                    store?.let {
+                        if (it.category.contains(category)) {
+                            storeList.add(it)
                         }
                     }
                 }
-                trySend(tokoList)
+                trySend(storeList)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -58,26 +57,26 @@ class FirebaseDataSource @Inject constructor() {
             }
         }
 
-        tokoRef.addValueEventListener(listener)
+        storeRef.addValueEventListener(listener)
 
         awaitClose {
-            tokoRef.removeEventListener(listener)
+            storeRef.removeEventListener(listener)
         }
     }
 
-    fun getTokoByLocation(location: String): Flow<List<Toko>> = callbackFlow {
+    fun getStoreByLocation(location: String): Flow<List<Store>> = callbackFlow {
         val listener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val tokoList = mutableListOf<Toko>()
-                for (tokoSnapshot in snapshot.children) {
-                    val toko = tokoSnapshot.getValue(Toko::class.java)
-                    toko?.let {
-                        if (it.lokasi.contains(location, ignoreCase = true)) {
-                            tokoList.add(it)
+                val storeList = mutableListOf<Store>()
+                for (storeSnapshot in snapshot.children) {
+                    val store = storeSnapshot.getValue(Store::class.java)
+                    store?.let {
+                        if (it.location.contains(location, ignoreCase = true)) {
+                            storeList.add(it)
                         }
                     }
                 }
-                trySend(tokoList)
+                trySend(storeList)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -85,10 +84,12 @@ class FirebaseDataSource @Inject constructor() {
             }
         }
 
-        tokoRef.addValueEventListener(listener)
+        storeRef.addValueEventListener(listener)
 
         awaitClose {
-            tokoRef.removeEventListener(listener)
+            storeRef.removeEventListener(listener)
         }
     }
 }
+
+

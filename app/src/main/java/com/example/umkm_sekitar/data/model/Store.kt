@@ -1,0 +1,9 @@
+package com.example.umkm_sekitar.data.model
+
+data class Store(
+    val photo: String = "",
+    val category: List<String> = listOf(),
+    val productList: List<Product> = listOf(),
+    val location: String = "",
+    val storeName: String = ""
+)

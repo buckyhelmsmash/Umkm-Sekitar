@@ -1,9 +1,9 @@
-package com.example.umkm_sekitar.ui.home
-
+package com.example.umkm_sekitar.ui.screen.home
+////
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.umkm_sekitar.data.model.Toko
-import com.example.umkm_sekitar.data.repository.TokoRepository
+import com.example.umkm_sekitar.data.model.Store
+import com.example.umkm_sekitar.data.repository.StoreRepository
 import com.example.umkm_sekitar.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,57 +11,58 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
+//
+////
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val tokoRepository: TokoRepository
+    private val storeRepository: StoreRepository
 ) : ViewModel() {
 
-    private val _tokoList = MutableStateFlow<Resource<List<Toko>>>(Resource.Loading())
-    val tokoList: StateFlow<Resource<List<Toko>>> = _tokoList
+    private val _storeList = MutableStateFlow<Resource<List<Store>>>(Resource.Loading())
+    val storeList: StateFlow<Resource<List<Store>>> = _storeList
 
-    private val _filteredTokoList = MutableStateFlow<Resource<List<Toko>>>(Resource.Loading())
-    val filteredTokoList: StateFlow<Resource<List<Toko>>> = _filteredTokoList
+    private val _filteredStoreList = MutableStateFlow<Resource<List<Store>>>(Resource.Loading())
+    val filteredStoreList: StateFlow<Resource<List<Store>>> = _filteredStoreList
 
     init {
-        getAllToko()
+        getAllStore()
     }
 
-    fun getAllToko() {
+    fun getAllStore() {
         viewModelScope.launch {
-            _tokoList.value = Resource.Loading()
-            tokoRepository.getAllToko()
+            _storeList.value = Resource.Loading()
+            storeRepository.getAllStore()
                 .catch { e ->
-                    _tokoList.value = Resource.Error(e.message ?: "Unknown error occurred")
+                    _storeList.value = Resource.Error(e.message ?: "Unknown error occurred")
                 }
-                .collect { tokoList ->
-                    _tokoList.value = Resource.Success(tokoList)
+                .collect { storeList ->
+                    _storeList.value = Resource.Success(storeList)
                 }
         }
     }
 
-    fun filterTokoByCategory(category: String) {
+    fun filterStoreByCategory(category: String) {
         viewModelScope.launch {
-            _filteredTokoList.value = Resource.Loading()
-            tokoRepository.getTokoByCategory(category)
+            _filteredStoreList.value = Resource.Loading()
+            storeRepository.getStoreByCategory(category)
                 .catch { e ->
-                    _filteredTokoList.value = Resource.Error(e.message ?: "Unknown error occurred")
+                    _filteredStoreList.value = Resource.Error(e.message ?: "Unknown error occurred")
                 }
-                .collect { tokoList ->
-                    _filteredTokoList.value = Resource.Success(tokoList)
+                .collect { storeList ->
+                    _filteredStoreList.value = Resource.Success(storeList)
                 }
         }
     }
 
-    fun filterTokoByLocation(location: String) {
+    fun filterStoreByLocation(location: String) {
         viewModelScope.launch {
-            _filteredTokoList.value = Resource.Loading()
-            tokoRepository.getTokoByLocation(location)
+            _filteredStoreList.value = Resource.Loading()
+            storeRepository.getStoreByLocation(location)
                 .catch { e ->
-                    _filteredTokoList.value = Resource.Error(e.message ?: "Unknown error occurred")
+                    _filteredStoreList.value = Resource.Error(e.message ?: "Unknown error occurred")
                 }
-                .collect { tokoList ->
-                    _filteredTokoList.value = Resource.Success(tokoList)
+                .collect { storeList ->
+                    _filteredStoreList.value = Resource.Success(storeList)
                 }
         }
     }

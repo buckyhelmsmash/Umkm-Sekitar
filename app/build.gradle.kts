@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
     id("com.google.gms.google-services")
+    id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
 }
 
@@ -13,11 +14,16 @@ android {
     defaultConfig {
         applicationId = "com.example.umkm_sekitar"
         minSdk = 24
-        targetSdk = 34
+        //noinspection EditedTargetSdkVersion
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    tasks.withType<JavaCompile> {
+        options.compilerArgs.add("-Xlint:deprecation")
     }
 
     buildTypes {
@@ -64,9 +70,13 @@ dependencies {
     implementation("com.firebaseui:firebase-ui-auth:8.0.2")
     implementation("com.google.firebase:firebase-database-ktx")
 
-    // Hilt for dependency injection
-    implementation("com.google.dagger:hilt-android:2.48")
-    ksp("com.google.dagger:hilt-android-compiler:2.48")
+    // Dependency Injector
+    implementation("com.google.dagger:hilt-android:2.56.2")
+    ksp("com.google.dagger:hilt-compiler:2.56.2")
+    ksp("com.google.dagger:hilt-android-compiler:2.56.2")
+    ksp("androidx.hilt:hilt-compiler:1.2.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+
 
     // Navigation with Compose
     implementation("androidx.navigation:navigation-compose:2.7.7")
@@ -75,7 +85,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
 
-    // Coil for image loading in Compose
+    // Coil
     implementation("io.coil-kt:coil-compose:2.5.0")
 
     // Compose ViewModel utilities
