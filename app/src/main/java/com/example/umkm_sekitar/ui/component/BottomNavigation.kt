@@ -62,32 +62,36 @@ fun BottomNavigationBar(
         )
     )
 
-    NavigationBar(
-        containerColor = Color.White
-    ) {
-        navigationItems.forEachIndexed { index, item ->
-            NavigationBarItem(
-                selected = selectedNavigationIndex.intValue == index,
-                onClick = {
-                    selectedNavigationIndex.intValue = index
-                    navController.navigate(item.route)
-                },
-                icon = {
-                    Icon(imageVector = item.icon, contentDescription = item.title)   },
-                label = {
-                    Text(
-                        item.title,
-                        color = if (index == selectedNavigationIndex.intValue)
-                            Color.Black
-                        else Color.Gray
+    Surface (
+        color = MaterialTheme.colorScheme.primary,
+    ){
+        NavigationBar(
+            containerColor = Color.White
+        ) {
+            navigationItems.forEachIndexed { index, item ->
+                NavigationBarItem(
+                    selected = selectedNavigationIndex.intValue == index,
+                    onClick = {
+                        selectedNavigationIndex.intValue = index
+                        navController.navigate(item.route)
+                    },
+                    icon = {
+                        Icon(imageVector = item.icon, contentDescription = item.title)   },
+                    label = {
+                        Text(
+                            item.title,
+                            color = if (index == selectedNavigationIndex.intValue)
+                                Color.Black
+                            else Color.Gray
+                        )
+                    },
+                    colors = NavigationBarItemDefaults.colors(
+                        selectedIconColor = MaterialTheme.colorScheme.surface,
+                        indicatorColor = MaterialTheme.colorScheme.primary
                     )
-                },
-                colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = MaterialTheme.colorScheme.surface,
-                    indicatorColor = MaterialTheme.colorScheme.primary
-                )
 
-            )
+                )
+            }
         }
     }
 }
