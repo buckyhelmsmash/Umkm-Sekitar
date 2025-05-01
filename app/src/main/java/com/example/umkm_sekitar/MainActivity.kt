@@ -19,10 +19,10 @@ import com.example.umkm_sekitar.ui.component.Screen
 import com.example.umkm_sekitar.ui.screen.auth.AuthScreen
 import com.example.umkm_sekitar.ui.screen.auth.AuthState
 import com.example.umkm_sekitar.ui.screen.auth.AuthViewModel
-import com.example.umkm_sekitar.ui.screen.auth.ProfileScreen
 import com.example.umkm_sekitar.ui.screen.cart.CartScreen
 import com.example.umkm_sekitar.ui.screen.home.HomeScreen
 import com.example.umkm_sekitar.ui.screen.orders.OrdersScreen
+import com.example.umkm_sekitar.ui.screen.profile.ProfileScreen
 import com.example.umkm_sekitar.ui.theme.UmkmSekitarTheme
 import dagger.hilt.android.AndroidEntryPoint
 

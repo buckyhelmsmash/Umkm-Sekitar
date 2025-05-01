@@ -85,27 +85,4 @@ fun SignInContent(onSignInClick: () -> Unit) {
     }
 }
 
-@Composable
-fun ProfileScreen(
-    viewModel: AuthViewModel = viewModel()
-) {
-    val context = LocalContext.current
-    val currentUser by viewModel.currentUser.collectAsState()
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        currentUser?.let { user ->
-            Text(text = "Welcome, ${user.displayName ?: "User"}")
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(text = "Email: ${user.email ?: "Not available"}")
-            Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = { viewModel.signOut(context) }) {
-                Text(text = "Sign Out")
-            }
-        }
-    }
-}
