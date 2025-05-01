@@ -10,7 +10,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.umkm_sekitar.util.getAuthState
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.google.firebase.auth.FirebaseAuth
@@ -18,16 +20,14 @@ import com.google.firebase.auth.FirebaseAuth
 @Composable
 fun AuthScreen(
     onSignedIn: () -> Unit,
-    viewModel: AuthViewModel = viewModel()
+    viewModel: AuthViewModel = hiltViewModel()
 ) {
-    val context = LocalContext.current
-    val authState by viewModel.authState.collectAsState()
+    val authState = getAuthState()
 
     val signInLauncher = rememberLauncherForActivityResult(
         FirebaseAuthUIActivityResultContract()
     ) { result ->
-        val user = FirebaseAuth.getInstance().currentUser
-        viewModel.onAuthResult(result.resultCode, user)
+        viewModel.onAuthResult(result.resultCode)
     }
 
     LaunchedEffect(authState) {

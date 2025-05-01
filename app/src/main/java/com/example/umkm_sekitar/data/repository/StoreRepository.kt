@@ -4,7 +4,9 @@ import com.example.umkm_sekitar.data.model.Store
 import com.example.umkm_sekitar.data.source.FirebaseDataSource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class StoreRepository @Inject constructor(
     private val firebaseDataSource: FirebaseDataSource
 ) {

@@ -1,5 +1,5 @@
 package com.example.umkm_sekitar.ui.screen.home
-////
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.umkm_sekitar.data.model.Store
@@ -11,8 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-//
-////
+
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val storeRepository: StoreRepository
