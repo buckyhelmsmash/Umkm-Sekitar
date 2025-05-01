@@ -14,7 +14,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.createGraph
 import com.example.umkm_sekitar.data.model.Store
+import com.example.umkm_sekitar.ui.component.BottomNavigationBar
 import com.example.umkm_sekitar.ui.screen.auth.AuthScreen
 import com.example.umkm_sekitar.ui.screen.auth.AuthState
 import com.example.umkm_sekitar.ui.screen.auth.AuthViewModel
@@ -26,12 +30,17 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.navigation.compose.composable
+import com.example.umkm_sekitar.ui.component.Screen
+import com.example.umkm_sekitar.ui.screen.cart.CartScreen
+import com.example.umkm_sekitar.ui.screen.home.HomeScreen
+import com.example.umkm_sekitar.ui.screen.orders.OrdersScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val database = Firebase.database
-    private val firebaseStore = database.getReference("toko")
+    private val firebaseStore = database.getReference("store")
 
     private val TAG = "FIREBASE"
 
@@ -80,13 +89,41 @@ class MainActivity : ComponentActivity() {
                 val authViewModel: AuthViewModel = viewModel()
                 val authState = authViewModel.authState.collectAsState().value
 
-                Scaffold { innerPadding ->
+                val navController = rememberNavController()
+
+                Scaffold (
+                    bottomBar = {
+                        if (authState is AuthState.SignedIn) {
+                            BottomNavigationBar(navController)
+                        }
+                    }
+                ){ innerPadding ->
 
                     when (authState) {
                         is AuthState.SignedIn -> {
-                            UserProfileScreen(
-                                modifier = Modifier.fillMaxSize().padding(innerPadding).padding(horizontal = 5.dp),
-                                viewModel = authViewModel
+
+                            val graph =
+                                navController.createGraph(startDestination = Screen.Home.route) {
+                                    composable(route = Screen.Home.route) {
+                                        HomeScreen()
+                                    }
+                                    composable(route = Screen.Cart.route) {
+                                        CartScreen()
+                                    }
+                                    composable(route = Screen.Orders.route) {
+                                        OrdersScreen()
+                                    }
+                                    composable(route = Screen.Profile.route) {
+                                        UserProfileScreen(
+                                            modifier = Modifier.fillMaxSize().padding(innerPadding).padding(horizontal = 5.dp),
+                                            viewModel = authViewModel
+                                        )
+                                    }
+                                }
+                            NavHost(
+                                navController = navController,
+                                graph = graph,
+                                modifier = Modifier.padding(innerPadding)
                             )
                         }
 

@@ -40,29 +40,6 @@ fun HomeScreen(
                 }
             }
         }
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        // Hasil Filter
-        Text("Hasil Filter", style = MaterialTheme.typography.titleMedium)
-        when (filteredStoreListState) {
-            is Resource.Loading -> CircularProgressIndicator()
-            is Resource.Error -> Text("Error: ${(filteredStoreListState as Resource.Error).message}")
-            is Resource.Success -> {
-                val list = (filteredStoreListState as Resource.Success).data
-                if (list.isNullOrEmpty()) {
-                    Text("Tidak ditemukan toko yang sesuai.")
-                } else {
-                    LazyColumn (
-                        modifier = modifier
-                    ){
-                        items(list) { toko ->
-                            StoreItem(toko = toko)
-                        }
-                    }
-                }
-            }
-        }
     }
 }
 
