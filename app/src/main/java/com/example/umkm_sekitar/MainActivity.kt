@@ -4,12 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
@@ -21,22 +19,15 @@ import com.example.umkm_sekitar.ui.component.Screen
 import com.example.umkm_sekitar.ui.screen.auth.AuthScreen
 import com.example.umkm_sekitar.ui.screen.auth.AuthState
 import com.example.umkm_sekitar.ui.screen.auth.AuthViewModel
-import com.example.umkm_sekitar.ui.screen.auth.UserProfileScreen
+import com.example.umkm_sekitar.ui.screen.auth.ProfileScreen
 import com.example.umkm_sekitar.ui.screen.cart.CartScreen
 import com.example.umkm_sekitar.ui.screen.home.HomeScreen
 import com.example.umkm_sekitar.ui.screen.orders.OrdersScreen
 import com.example.umkm_sekitar.ui.theme.UmkmSekitarTheme
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    private val database = Firebase.database
-    private val firebaseStore = database.getReference("store")
-
-    private val TAG = "FIREBASE"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,11 +66,7 @@ class MainActivity : ComponentActivity() {
                                         OrdersScreen()
                                     }
                                     composable(route = Screen.Profile.route) {
-                                        UserProfileScreen(
-                                            modifier = Modifier
-                                                .fillMaxSize()
-                                                .padding(innerPadding)
-                                                .padding(horizontal = 5.dp),
+                                        ProfileScreen(
                                             viewModel = authViewModel
                                         )
                                     }

@@ -86,15 +86,14 @@ fun SignInContent(onSignInClick: () -> Unit) {
 }
 
 @Composable
-fun UserProfileScreen(
-    modifier: Modifier = Modifier,
+fun ProfileScreen(
     viewModel: AuthViewModel = viewModel()
 ) {
     val context = LocalContext.current
     val currentUser by viewModel.currentUser.collectAsState()
 
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
