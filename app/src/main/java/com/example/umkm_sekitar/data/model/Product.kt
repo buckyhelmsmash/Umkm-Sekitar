@@ -1,6 +1,7 @@
 package com.example.umkm_sekitar.data.model
 
 data class Product(
+    val id: String = "",
     val description: String = "",
     val photo: String = "",
     val price: Int = 0,
