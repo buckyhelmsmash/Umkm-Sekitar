@@ -2,6 +2,7 @@ package com.example.umkm_sekitar.ui.screen.auth
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.firebase.ui.auth.AuthUI
@@ -26,6 +27,7 @@ class AuthViewModel : ViewModel() {
 
     private fun checkAuthState() {
         val user = auth.currentUser
+        logUserData(user)
         _currentUser.value = user
         _authState.value = if (user != null) {
             AuthState.SignedIn(user)
@@ -46,11 +48,31 @@ class AuthViewModel : ViewModel() {
     }
 
     fun onAuthResult(resultCode: Int, user: FirebaseUser?) {
+        logUserData(user)
         if (resultCode == Activity.RESULT_OK && user != null) {
             _authState.value = AuthState.SignedIn(user)
             _currentUser.value = user
         } else {
             _authState.value = AuthState.SignInFailed
+        }
+    }
+
+    private fun logUserData (user: FirebaseUser?) {
+        if(user != null){
+            Log.d("UserData", "User ID: ${user.uid}")
+            Log.d("UserData", "Display Name: ${user.displayName}")
+            Log.d("UserData", "Email: ${user.email}")
+            Log.d("UserData", "Phone Number: ${user.phoneNumber}")
+            Log.d("UserData", "Photo URL: ${user.photoUrl}")
+            Log.d("UserData", "Is Email Verified: ${user.isEmailVerified}")
+            Log.d("UserData", "Provider ID: ${user.providerId}")
+
+            val providers = user.providerData.joinToString(", ") {
+                "${it.providerId} (${it.uid})"
+            }
+            Log.d("UserData", "Providers: $providers")
+        } else {
+            Log.e("UserData", "UserData not found")
         }
     }
 }
