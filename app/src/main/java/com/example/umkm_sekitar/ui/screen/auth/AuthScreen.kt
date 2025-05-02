@@ -1,5 +1,6 @@
 package com.example.umkm_sekitar.ui.screen.auth
 
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
@@ -27,6 +28,7 @@ fun AuthScreen(
     val signInLauncher = rememberLauncherForActivityResult(
         FirebaseAuthUIActivityResultContract()
     ) { result ->
+        Log.d("AUTH_RESULT", "AUTH_RESULT CODE: $result.")
         viewModel.onAuthResult(result.resultCode)
     }
 
