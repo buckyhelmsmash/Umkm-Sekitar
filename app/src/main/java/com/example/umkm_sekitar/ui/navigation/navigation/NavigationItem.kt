@@ -4,17 +4,14 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import com.example.umkm_sekitar.ui.navigation.Screen
 import com.example.umkm_sekitar.ui.screen.auth.AuthScreen
 import com.example.umkm_sekitar.ui.screen.auth.AuthState
 import com.example.umkm_sekitar.ui.screen.cart.CartScreen
 import com.example.umkm_sekitar.ui.screen.home.HomeScreen
 import com.example.umkm_sekitar.ui.screen.loading.LoadingScreen
-import com.example.umkm_sekitar.ui.screen.ongoing.OnGoingScreen
 import com.example.umkm_sekitar.ui.screen.orders.OrdersScreen
 import com.example.umkm_sekitar.ui.screen.profile.ProfileScreen
 
@@ -47,18 +44,6 @@ fun NavigationItem(
             AuthScreen(
                 onSignedIn = { navController.navigate(Screen.Home.route) }
             )
-        }
-
-        composable(
-            "${Screen.OnGoing.route}/{storeId}/{orderId}",
-            arguments = listOf(
-                navArgument("storeId") { type = NavType.StringType },
-                navArgument("orderId") { type = NavType.StringType }
-            )
-        ) { backStackEntry ->
-            val storeId = backStackEntry.arguments?.getString("storeId")
-            val orderId = backStackEntry.arguments?.getString("orderId") ?: ""
-            OnGoingScreen(storeId = storeId ?: "", orderId = orderId, navController = navController)
         }
     }
 }
