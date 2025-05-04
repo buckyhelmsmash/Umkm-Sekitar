@@ -12,11 +12,14 @@ import com.example.umkm_sekitar.ui.navigation.Screen
 import com.example.umkm_sekitar.ui.screen.auth.AuthScreen
 import com.example.umkm_sekitar.ui.screen.auth.AuthState
 import com.example.umkm_sekitar.ui.screen.cart.CartScreen
+import com.example.umkm_sekitar.ui.screen.checkout.CheckOutScreen
 import com.example.umkm_sekitar.ui.screen.detail.DetailScreen
 import com.example.umkm_sekitar.ui.screen.home.HomeScreen
 import com.example.umkm_sekitar.ui.screen.loading.LoadingScreen
+import com.example.umkm_sekitar.ui.screen.ongoing.OnGoingScreen
 import com.example.umkm_sekitar.ui.screen.orders.OrdersScreen
 import com.example.umkm_sekitar.ui.screen.profile.ProfileScreen
+import com.example.umkm_sekitar.ui.screen.search.SearchScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -40,6 +43,12 @@ fun NavigationItem(
         composable(Screen.Profile.route) {
             ProfileScreen()
         }
+        composable(Screen.Search.route) {
+            SearchScreen(navController = navController)
+        }
+        composable(Screen.CheckOut.route) {
+            CheckOutScreen(navController = navController)
+        }
         composable(Screen.LoadingCo.route) {
             LoadingScreen(navController = navController)
         }
@@ -55,6 +64,18 @@ fun NavigationItem(
         ) { backStackEntry ->
             val id = backStackEntry.arguments?.getString("id")
             DetailScreen(storeId = id ?: "", navController = navController)
+        }
+
+        composable(
+            "${Screen.OnGoing.route}/{storeId}/{orderId}",
+            arguments = listOf(
+                navArgument("storeId") { type = NavType.StringType },
+                navArgument("orderId") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val storeId = backStackEntry.arguments?.getString("storeId")
+            val orderId = backStackEntry.arguments?.getString("orderId") ?: ""
+            OnGoingScreen(storeId = storeId ?: "", orderId = orderId, navController = navController)
         }
     }
 }
