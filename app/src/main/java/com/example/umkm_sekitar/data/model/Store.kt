@@ -4,7 +4,8 @@ data class Store(
     val id: String = "",
     val photo: String = "",
     val category: List<String> = listOf(),
-    val productList: List<Product> = listOf(),
+    val products: List<Product> = listOf(),
     val location: String = "",
-    val storeName: String = ""
+    val storeName: String = "",
+    val distance: String = ""
 )

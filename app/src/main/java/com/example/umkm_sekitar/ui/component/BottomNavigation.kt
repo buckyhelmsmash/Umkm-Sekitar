@@ -17,9 +17,12 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.umkm_sekitar.ui.navigation.Screen
+import com.example.umkm_sekitar.ui.theme.NavyBlue
+import com.example.umkm_sekitar.ui.theme.RoyalBlue
 
 data class NavigationItem(
     val title: String,
@@ -27,20 +30,10 @@ data class NavigationItem(
     val route: String
 )
 
-sealed class Screen(val route: String) {
-    object Home : Screen("home_screen")
-    object Cart : Screen("cart_screen")
-    object Orders : Screen("orders_screen")
-    object Profile : Screen("profile_screen")
-}
-
 @Composable
 fun BottomNavigationBar(
     navController: NavController
 ) {
-    val selectedNavigationIndex = rememberSaveable {
-        mutableIntStateOf(0)
-    }
 
     val navigationItems = listOf(
         NavigationItem(
@@ -65,44 +58,52 @@ fun BottomNavigationBar(
         )
     )
 
-    Surface (
-        color = MaterialTheme.colorScheme.primary,
-    ){
-        NavigationBar(
-            containerColor = Color.White
-        ) {
-            navigationItems.forEachIndexed { index, item ->
-                NavigationBarItem(
-                    selected = selectedNavigationIndex.intValue == index,
-                    onClick = {
-                        selectedNavigationIndex.intValue = index
-                        navController.navigate(item.route)
-                    },
-                    icon = {
-                        Icon(imageVector = item.icon, contentDescription = item.title)   },
-                    label = {
-                        Text(
-                            item.title,
-                            color = if (index == selectedNavigationIndex.intValue)
-                                Color.Black
-                            else Color.Gray
-                        )
-                    },
-                    colors = NavigationBarItemDefaults.colors(
-                        selectedIconColor = MaterialTheme.colorScheme.surface,
-                        indicatorColor = MaterialTheme.colorScheme.primary
-                    )
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route?.substringBefore("/")
+    val selectedNavigationIndex = navigationItems.indexOfFirst {
+        currentRoute?.startsWith(it.route) == true
+    }
 
+
+    NavigationBar(
+        containerColor = NavyBlue
+    ) {
+        navigationItems.forEachIndexed { index, item ->
+            NavigationBarItem(
+                selected = selectedNavigationIndex == index,
+                onClick = {
+                    if (currentRoute?.startsWith(item.route) != true) {
+                        navController.navigate(item.route) {
+                            popUpTo(navController.graph.startDestinationId) {
+                                inclusive = false
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
+                },
+                icon = {
+                    Icon(imageVector = item.icon, contentDescription = item.title)
+                },
+                label = {
+                    Text(
+                        item.title,
+                        color = if (index == selectedNavigationIndex)
+                            Color.White
+                        else Color.Gray
+                    )
+                },
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = Color.White,
+                    indicatorColor = NavyBlue,
+                    selectedTextColor = Color.White,
+                    unselectedTextColor = Color.Gray,
+                    unselectedIconColor = Color.Gray,
                 )
-            }
+
+            )
         }
     }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-private fun BottomNavigationBarPreview() {
-    BottomNavigationBar(navController = NavController(context = LocalContext.current))
 }
 

@@ -20,9 +20,6 @@ class HomeViewModel @Inject constructor(
     private val _storeList = MutableStateFlow<Resource<List<Store>>>(Resource.Loading())
     val storeList: StateFlow<Resource<List<Store>>> = _storeList
 
-    private val _filteredStoreList = MutableStateFlow<Resource<List<Store>>>(Resource.Loading())
-    val filteredStoreList: StateFlow<Resource<List<Store>>> = _filteredStoreList
-
     init {
         getAllStore()
     }
@@ -36,32 +33,6 @@ class HomeViewModel @Inject constructor(
                 }
                 .collect { storeList ->
                     _storeList.value = Resource.Success(storeList)
-                }
-        }
-    }
-
-    fun filterStoreByCategory(category: String) {
-        viewModelScope.launch {
-            _filteredStoreList.value = Resource.Loading()
-            storeRepository.getStoreByCategory(category)
-                .catch { e ->
-                    _filteredStoreList.value = Resource.Error(e.message ?: "Unknown error occurred")
-                }
-                .collect { storeList ->
-                    _filteredStoreList.value = Resource.Success(storeList)
-                }
-        }
-    }
-
-    fun filterStoreByLocation(location: String) {
-        viewModelScope.launch {
-            _filteredStoreList.value = Resource.Loading()
-            storeRepository.getStoreByLocation(location)
-                .catch { e ->
-                    _filteredStoreList.value = Resource.Error(e.message ?: "Unknown error occurred")
-                }
-                .collect { storeList ->
-                    _filteredStoreList.value = Resource.Success(storeList)
                 }
         }
     }
