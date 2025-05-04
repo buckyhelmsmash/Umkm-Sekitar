@@ -4,12 +4,15 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.umkm_sekitar.ui.navigation.Screen
 import com.example.umkm_sekitar.ui.screen.auth.AuthScreen
 import com.example.umkm_sekitar.ui.screen.auth.AuthState
 import com.example.umkm_sekitar.ui.screen.cart.CartScreen
+import com.example.umkm_sekitar.ui.screen.detail.DetailScreen
 import com.example.umkm_sekitar.ui.screen.home.HomeScreen
 import com.example.umkm_sekitar.ui.screen.loading.LoadingScreen
 import com.example.umkm_sekitar.ui.screen.orders.OrdersScreen
@@ -44,6 +47,14 @@ fun NavigationItem(
             AuthScreen(
                 onSignedIn = { navController.navigate(Screen.Home.route) }
             )
+        }
+
+        composable(
+            "${Screen.Detail.route}/{id}",
+            arguments = listOf(navArgument("id") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments?.getString("id")
+            DetailScreen(storeId = id ?: "", navController = navController)
         }
     }
 }
