@@ -66,6 +66,7 @@ class MainActivity : ComponentActivity() {
                                         ProfileScreen()
                                     }
                                 }
+
                             NavHost(
                                 navController = navController,
                                 graph = graph,
@@ -75,7 +76,7 @@ class MainActivity : ComponentActivity() {
 
                         else -> {
                             AuthScreen(
-                                onSignedIn = { /* Navigate to main content */ }
+                                onSignedIn = { navController.navigate(Screen.Home.route) },
                             )
                         }
                     }

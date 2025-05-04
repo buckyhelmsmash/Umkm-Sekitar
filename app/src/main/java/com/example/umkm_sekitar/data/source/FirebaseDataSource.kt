@@ -1,5 +1,6 @@
 package com.example.umkm_sekitar.data.source
 //
+import com.example.umkm_sekitar.data.model.Product
 import com.example.umkm_sekitar.data.model.Store
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -90,6 +91,45 @@ class FirebaseDataSource @Inject constructor(
             storeRef.removeEventListener(listener)
         }
     }
+
+    fun updateProductStock(storeId: String, productId: String, newStock: String): Flow<Boolean> = callbackFlow {
+        storeRef.child(storeId).child("products")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    var productFound = false
+
+                    for (productSnapshot in snapshot.children) {
+                        val product = productSnapshot.getValue(Product::class.java)
+                        if (product?.id == productId) {
+                            productFound = true
+                            // Only update the stock field
+                            productSnapshot.ref.child("stock").setValue(newStock)
+                                .addOnSuccessListener {
+                                    trySend(true)
+                                }
+                                .addOnFailureListener { error ->
+                                    trySend(false)
+                                    close(error)
+                                }
+                            break
+                        }
+                    }
+
+                    if (!productFound) {
+                        trySend(false)
+                        close(Exception("Product not found"))
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    trySend(false)
+                    close(error.toException())
+                }
+            })
+
+        awaitClose()
+    }
+
 }
 
 

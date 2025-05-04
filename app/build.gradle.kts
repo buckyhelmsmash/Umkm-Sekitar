@@ -79,10 +79,6 @@ dependencies {
     ksp("androidx.hilt:hilt-compiler:1.2.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
-
-    // Navigation with Compose
-    implementation("androidx.navigation:navigation-compose:2.7.7")
-
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
@@ -90,8 +86,6 @@ dependencies {
     // Coil
     implementation("io.coil-kt:coil-compose:2.5.0")
 
-    // Compose ViewModel utilities
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
 
     // Compose Runtime LiveData
     implementation("androidx.compose.runtime:runtime-livedata")

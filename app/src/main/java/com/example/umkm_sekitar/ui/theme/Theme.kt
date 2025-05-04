@@ -51,7 +51,8 @@ fun UmkmSekitarTheme(
     }
 
     MaterialTheme(
-        colorScheme = colorScheme,
+//        colorScheme = colorScheme,
+        colorScheme = LightColorScheme,
         typography = Typography,
         content = content
     )
