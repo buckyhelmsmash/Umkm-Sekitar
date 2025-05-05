@@ -174,7 +174,7 @@ fun CartScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
-                    .padding(bottom = 100.dp),
+                    .padding(bottom = 120.dp),
                 contentPadding = PaddingValues(all = 16.dp),
                 shape = RoundedCornerShape(4.dp),
                 border = BorderStroke(width = 1.dp, color = borderColor),

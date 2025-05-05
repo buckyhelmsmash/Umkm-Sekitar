@@ -110,19 +110,26 @@ fun CheckOutScreen(
 
     val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var showBottomSheet by remember { mutableStateOf(false) }
+    var backPressedCount by remember { mutableIntStateOf(0) }
 
     BackHandler(enabled = true) {
-        scope.launch {
-            for (cartItemWithProduct in cartWithProducts.values.flatten()) {
-                val productId = cartItemWithProduct.cartItem.productId
-                cartViewModel.updateCheckedItem(userId, productId, false)
-                delay(100)
+        if (backPressedCount == 0) {
+            scope.launch {
+                for (cartItemWithProduct in cartWithProducts.values.flatten()) {
+                    val productId = cartItemWithProduct.cartItem.productId
+                    cartViewModel.updateCheckedItem(userId, productId, false)
+                    delay(100)
+                }
+                delay(200)
+                navController.navigate(route = Screen.Cart.route)
             }
-            delay(200)
-            navController.navigate(route = Screen.Cart.route)
+            backPressedCount++
+        } else {
+            navController.navigate(route = Screen.Home.route) {
+                popUpTo(Screen.Home.route) { inclusive = true }
+            }
         }
     }
-
 
 
     if (showBottomSheet) {
